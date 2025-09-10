@@ -1,3 +1,4 @@
+/////////////////version1/////////////////
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -17,22 +18,34 @@ typedef struct
 
 } joueur;
 
-int theprintfunction(int i ,joueur info[]){
-            printf("Nom :");
-            scanf(" %[^\n]", info[i].nom);
-            printf("prenom :" );
-            scanf(" %[^\n]", info[i].prenom);
-            printf("numeroMaillot :");
-            scanf("%d", &info[i].numeroMaillot);
-            printf("poste (gardien, défenseur, milieu, attaquant) :");
-            scanf(" %[^\n]", info[i].poste);
-            printf("age :");
-            scanf("%d", &info[i].age);
-            printf("buts :");
-            scanf("%d", &info[i].buts);
-            info[i].id = globalid;
-            globalid++;
+int theprintfunction(int i, joueur info[])
+{
+    printf("Nom :");
+    scanf(" %[^\n]", info[i].nom);
+    printf("prenom :");
+    scanf(" %[^\n]", info[i].prenom);
+    printf("numeroMaillot :");
+    scanf("%d", &info[i].numeroMaillot);
+    printf("poste (gardien, défenseur, milieu, attaquant) :");
+    scanf(" %[^\n]", info[i].poste);
+    printf("age :");
+    scanf("%d", &info[i].age);
+    printf("buts :");
+    scanf("%d", &info[i].buts);
+    info[i].id = globalid;
+    globalid++;
 }
+int theprintfunction2(int i, joueur info[])
+{
+    printf("Nom :%s\n", info[i].nom);
+    printf("prenom %s\n", info[i].prenom);
+    printf("numeroMaillot %d\n", info[i].numeroMaillot);
+    printf("poste%s\n", info[i].poste);
+    printf("age%d\n", info[i].age);
+    printf("buts%d\n", info[i].buts);
+    printf("id%d\n", info[i].id);
+}
+
 /// /////// ajout///
 void Ajouter(joueur info[])
 {
@@ -48,8 +61,7 @@ void Ajouter(joueur info[])
         for (int i = totplayers; i < 1 + totplayers; i++)
         {
 
-            theprintfunction(i ,info);
-            
+            theprintfunction(i, info);
         }
         totplayers++;
     }
@@ -61,8 +73,7 @@ void Ajouter(joueur info[])
 
         for (int i = totplayers; i < totplayers + nomber; i++)
         {
-          theprintfunction(i ,info);
-            
+            theprintfunction(i, info);
         }
 
         totplayers = totplayers + nomber;
@@ -141,13 +152,8 @@ void Afficher(joueur info[])
 
     for (int i = 0; i < totplayers; i++)
     {
-        printf("Nom :%s\n", info[i].nom);
-        printf("prenom %s\n", info[i].prenom);
-        printf("numeroMaillot %d\n", info[i].numeroMaillot);
-        printf("poste%s\n", info[i].poste);
-        printf("age%d\n", info[i].age);
-        printf("buts%d\n", info[i].buts);
-        printf("id%d\n", info[i].id);
+
+        theprintfunction2(i, info);
     }
 }
 ////rechercher/////
@@ -172,14 +178,7 @@ int Rechercher(joueur info[])
             if (idRechercher == info[i].id)
             {
 
-                printf("joueur trouvé !\n");
-                printf("Nom :%s\n", info[i].nom);
-                printf("prenom %s\n", info[i].prenom);
-                printf("numeroMaillot %d\n", info[i].numeroMaillot);
-                printf("poste%s\n", info[i].poste);
-                printf("age%d\n", info[i].age);
-                printf("buts%d\n", info[i].buts);
-                printf("id%d\n", info[i].id);
+                theprintfunction2(i, info);
 
                 trouve = 1;
                 return i;
@@ -202,14 +201,7 @@ int Rechercher(joueur info[])
         {
             if (strcmp(nomRechercher, info[i].nom) == 0)
             {
-                printf("joueur trouvé !\n");
-                printf("Nom :%s\n", info[i].nom);
-                printf("prenom %s\n", info[i].prenom);
-                printf("numeroMaillot %d\n", info[i].numeroMaillot);
-                printf("poste%s\n", info[i].poste);
-                printf("age%d\n", info[i].age);
-                printf("buts%d\n", info[i].buts);
-                printf("id%d\n", info[i].id);
+                theprintfunction2(i, info);
                 trouve = 1;
                 return i;
                 break;
@@ -282,117 +274,100 @@ void supprimer(joueur info[])
         printf("joueur non trouve\n");
     }
 }
-void nombretotal(joueur info[]){
-    printf("le nombre total de joueurs %d",totplayers);
+void nombretotal(joueur info[])
+{
+    printf("le nombre total de joueurs %d", totplayers);
 }
-void agemoyen(joueur info[]){
+void agemoyen(joueur info[])
+{
     float moyenne;
-    int x=0;
+    int x = 0;
     for (int i = 0; i < totplayers; i++)
     {
-        x= info[i].age+x;
+        x = info[i].age + x;
     }
-    moyenne=(float)x/totplayers;
-    printf("l’âge moyen %.2f",moyenne);
+    moyenne = (float)x / totplayers;
+    printf("l’âge moyen %.2f", moyenne);
 }
-void butmarque(joueur info[]){
+void butmarque(joueur info[])
+{
     int choix;
     printf("entrer le nombre de buts");
-    scanf("%d",choix);
-    int x=0;
-    
-        for (int i = 0; i < totplayers; i++)
-    {
-        if (info[i].buts>choix)
-        {
-            printf("Nom :%s\n", info[i].nom);
-        printf("prenom %s\n", info[i].prenom);
-        printf("numeroMaillot %d\n", info[i].numeroMaillot);
-        printf("poste%s\n", info[i].poste);
-        printf("age%d\n", info[i].age);
-        printf("buts%d\n", info[i].buts);
-        printf("id%d\n", info[i].id);
-        x++;
-        }else{
-            continue;
+    scanf("%d", choix);
+    int x = 0;
 
+    for (int i = 0; i < totplayers; i++)
+    {
+        if (info[i].buts > choix)
+        {
+            theprintfunction2(i, info);
+            x++;
         }
-        
-        
-    } 
-    if (x=0)
+        else
+        {
+            continue;
+        }
+    }
+    if (x = 0)
     {
         printf("no one has more then this number of buts");
     }
-    
-    
-    
 }
-void meilleurbuteur(joueur info[]){
-    int topbut=0;
-    if (totplayers == 0) {
+void meilleurbuteur(joueur info[])
+{
+    int topbut = 0;
+    if (totplayers == 0)
+    {
         printf("Aucun joueur enregistré.\n");
         return;
     }
-        for (int i = 1; i < totplayers; i++)
-    { if (info[i].buts>info[topbut].buts){topbut=i;}
- 
-
-    }
-        printf("Nom :%s\n", info[topbut].nom);
-        printf("prenom %s\n", info[topbut].prenom);
-        printf("numeroMaillot %d\n", info[topbut].numeroMaillot);
-        printf("poste%s\n", info[topbut].poste);
-        printf("age%d\n", info[topbut].age);
-        printf("buts%d\n", info[topbut].buts);
-        printf("id%d\n", info[topbut].id);
-}
-void plusjeuneEtage(joueur info[]){
-    int maxage=0;
-    int minage=0;
-    if (totplayers == 0) {
-        printf("Aucun joueur enregistré.\n");
-        return;
-    }
-        for (int i = 0; i < totplayers; i++)
-    { 
-        if (info[i].age>=info[maxage].age){
-            maxage=i;
-        }else if (info[minage].age>=info[i].age)
+    for (int i = 1; i < totplayers; i++)
+    {
+        if (info[i].buts > info[topbut].buts)
         {
-            minage=i;
+            topbut = i;
         }
-        
     }
-           printf("Nom :%s\n", info[maxage].nom);
-        printf("prenom %s\n", info[maxage].prenom);
-        printf("numeroMaillot %d\n", info[maxage].numeroMaillot);
-        printf("poste%s\n", info[maxage].poste);
-        printf("age%d\n", info[maxage].age);
-        printf("buts%d\n", info[maxage].buts);
-        printf("id%d\n", info[maxage].id);
-    
-         printf("Nom :%s\n", info[minage].nom);
-        printf("prenom %s\n", info[minage].prenom);
-        printf("numeroMaillot %d\n", info[minage].numeroMaillot);
-        printf("poste%s\n", info[minage].poste);
-        printf("age%d\n", info[minage].age);
-        printf("buts%d\n", info[minage].buts);
-        printf("id%d\n", info[minage].id);
-
-
-      
-
+    printf("Nom :%s\n", info[topbut].nom);
+    printf("prenom %s\n", info[topbut].prenom);
+    printf("numeroMaillot %d\n", info[topbut].numeroMaillot);
+    printf("poste%s\n", info[topbut].poste);
+    printf("age%d\n", info[topbut].age);
+    printf("buts%d\n", info[topbut].buts);
+    printf("id%d\n", info[topbut].id);
+}
+void plusjeuneEtage(joueur info[])
+{
+    int maxage = 0;
+    int minage = 0;
+    if (totplayers == 0)
+    {
+        printf("Aucun joueur enregistré.\n");
+        return;
+    }
+    for (int i = 0; i < totplayers; i++)
+    {
+        if (info[i].age >= info[maxage].age)
+        {
+            maxage = i;
+        }
+        else if (info[minage].age >= info[i].age)
+        {
+            minage = i;
+        }
+    }
+    theprintfunction2(maxage, info);
+    theprintfunction2(minage, info);
 }
 void Statistiques(joueur info[])
 {
-int choix;
+    int choix;
     printf("1.Afficher le nombre total de joueurs dans l’équipe");
     printf("\n2.Afficher l’âge moyen des joueurs.");
     printf("\n3.Afficher les joueurs ayant marqué plus de X buts (X introduit par l’utilisateur).");
     printf("\n4.Afficher le meilleur buteur (joueur avec le maximum de buts).");
     printf("\n5.Afficher le joueur le plus jeune et le plus âgé.");
-   
+
     printf("\n7. Quitter\n");
     printf("====================================");
 
@@ -400,22 +375,22 @@ int choix;
     scanf("%d", &choix);
     switch (choix)
     {
-    case  1:
+    case 1:
         nombretotal(info);
         break;
-    case  2:
+    case 2:
         agemoyen(info);
         break;
-    case  3:
+    case 3:
         butmarque(info);
         break;
-    case  4:
+    case 4:
         meilleurbuteur(info);
         break;
-    case  5:
+    case 5:
         plusjeuneEtage(info);
         break;
-    
+
     default:
         break;
     }
@@ -473,10 +448,10 @@ int main()
             Statistiques(info);
             break;
         case 7:
-            // printf("exit\n");
+            printf("exit\n");
             break;
         default:
-            // printf("Choix Invalide\n");
+            printf("Choix Invalide\n");
             goto here;
         }
 

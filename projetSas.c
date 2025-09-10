@@ -1,4 +1,4 @@
-/////////////////version1/////////////////
+/////////////////version2/////////////////
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -20,7 +20,7 @@ typedef struct
 
 int theprintfunction(int i, joueur info[])
 {
-    printf("Nom :");
+    printf("Nom : ");
     scanf(" %[^\n]", info[i].nom);
     printf("prenom :");
     scanf(" %[^\n]", info[i].prenom);
@@ -52,7 +52,7 @@ void Ajouter(joueur info[])
     int count = 0;
 
     printf("\n1.Ajouter un nouveau joueur");
-    printf("\n2.Ajouter plusieurs joueurs");
+    printf("\n2.Ajouter plusieurs joueurs\n");
 
     scanf("%d", &count);
 
@@ -125,7 +125,7 @@ void Afficher(joueur info[])
     int choix;
     if (totplayers == 0)
     {
-        printf("Aucun contact!\n");
+        printf("Aucun joueur!\n");
         return;
     }
     printf(" 1 Trier les joueurs par ordre alphabétique (Nom).\n");
@@ -159,6 +159,11 @@ void Afficher(joueur info[])
 ////rechercher/////
 int Rechercher(joueur info[])
 {
+           if (totplayers == 0)
+    {
+        printf("Aucun joueur!\n");
+        return;
+    }
     char nomRechercher[50];
     int count = 0;
     int idRechercher;
@@ -223,6 +228,11 @@ int Rechercher(joueur info[])
 /// ///////modifier////////////////
 void modifies(joueur info[])
 {
+           if (totplayers == 0)
+    {
+        printf("Aucun joueur!\n");
+        return;
+    }
     int index = Rechercher(info);
     if (index == -1)
     {
@@ -232,14 +242,13 @@ void modifies(joueur info[])
 
     printf("Modifier les informations du joueur  %s :\n", info[index].nom);
 
-    printf("Nouveau nom: ");
-    scanf(" %[^\n]", info[index].nom);
+    printf("le Nouveau poste : ");
+    scanf(" %[^\n]", info[index].poste);
 
-    printf("Nouveau prenom: ");
-    scanf(" %[^\n]", info[index].prenom);
+    printf("Nouveau age : ");
+    scanf(" %d", &info[index].age);
 
-    printf("Nouvel age: ");
-    scanf("%d", &info[index].age);
+    
 
     printf("Nouveau nombre de buts: ");
     scanf("%d", &info[index].buts);
@@ -249,7 +258,12 @@ void modifies(joueur info[])
 
 ////////supprime
 void supprimer(joueur info[])
-{
+{ 
+        if (totplayers == 0)
+    {
+        printf("Aucun joueur!\n");
+        return;
+    }
     int trouve = 0;
     int searchedid;
     printf("Entrez le id que vous recherchez: ");
@@ -404,10 +418,10 @@ int main()
 
     do
     {
-        printf("====================================\n");
+        printf("===========================================\n");
 
         printf("\tGestion d’une Équipe de Football\t\n");
-        printf("====================================\n");
+        printf("===========================================\n");
 
         printf("1."
                " Ajouter un joueur");
@@ -422,7 +436,7 @@ int main()
         printf("\n6."
                " Statistiques ");
         printf("\n7. Quitter\n");
-        printf("====================================");
+        printf("===========================================");
 
         printf("\nVotre choix : ");
         scanf("%d", &choix);

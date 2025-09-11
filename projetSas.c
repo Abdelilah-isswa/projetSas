@@ -94,26 +94,30 @@ void bublesort(joueur info[], int size, int choix)
             if (choix == 1)
             { // sort by name
                 if (strcmp(info[j].nom, info[j + 1].nom) > 0)
-                    ;
-                joueur temp = info[j];
-                info[j] = info[j + 1];
-                info[j + 1] = temp;
+                {
+
+                    joueur temp = info[j];
+                    info[j] = info[j + 1];
+                    info[j + 1] = temp;
+                }
             }
             else if (choix == 2)
             { // sort by age
                 if (info[j].age > info[j + 1].age)
-                    ;
-                joueur temp = info[j];
-                info[j] = info[j + 1];
-                info[j + 1] = temp;
+                {
+                    joueur temp = info[j];
+                    info[j] = info[j + 1];
+                    info[j + 1] = temp;
+                }
             }
             else if (choix == 3)
             { // sort by poste
                 if (strcmp(info[j].poste, info[j + 1].poste) > 0)
-                    ;
-                joueur temp = info[j];
-                info[j] = info[j + 1];
-                info[j + 1] = temp;
+                {
+                    joueur temp = info[j];
+                    info[j] = info[j + 1];
+                    info[j + 1] = temp;
+                }
             }
         }
     }
@@ -149,17 +153,62 @@ void Afficher(joueur info[])
     {
         printf("choix invalid!");
     }
-
-    for (int i = 0; i < totplayers; i++)
+    if (choix == 1 || choix == 2)
     {
+        for (int i = 0; i < totplayers; i++)
+        {
 
-        theprintfunction2(i, info);
+            theprintfunction2(i, info);
+        }
+    }
+    else if (choix == 3)
+    {
+        printf("Poste: gardien\n");
+        for (int i = 0; i < totplayers; i++)
+        {
+            char x[] = "gardien";
+
+            if (strcmp(info[i].poste, x) == 0)
+            {
+                printf("%s \n", info[i].nom);
+            }
+        }
+        printf("Poste: défenseur\n");
+        for (int i = 0; i < totplayers; i++)
+        {
+            char x[] = "défenseur";
+
+            if (strcmp(info[i].poste, x) == 0)
+            {
+                printf("%s \n", info[i].nom);
+            }
+        }
+        printf("Poste: milieu\n");
+        for (int i = 0; i < totplayers; i++)
+        {
+            char x[] = "milieu";
+
+            if (strcmp(info[i].poste, x) == 0)
+            {
+                printf("%s \n", info[i].nom);
+            }
+        }
+        printf("Poste: attaquant\n");
+        for (int i = 0; i < totplayers; i++)
+        {
+            char x[] = "attaquant";
+
+            if (strcmp(info[i].poste, x) == 0)
+            {
+                printf("%s \n", info[i].nom);
+            }
+        }
     }
 }
 ////rechercher/////
 int Rechercher(joueur info[])
 {
-           if (totplayers == 0)
+    if (totplayers == 0)
     {
         printf("Aucun joueur!\n");
         return;
@@ -228,7 +277,7 @@ int Rechercher(joueur info[])
 /// ///////modifier////////////////
 void modifies(joueur info[])
 {
-           if (totplayers == 0)
+    if (totplayers == 0)
     {
         printf("Aucun joueur!\n");
         return;
@@ -248,8 +297,6 @@ void modifies(joueur info[])
     printf("Nouveau age : ");
     scanf(" %d", &info[index].age);
 
-    
-
     printf("Nouveau nombre de buts: ");
     scanf("%d", &info[index].buts);
 
@@ -258,8 +305,8 @@ void modifies(joueur info[])
 
 ////////supprime
 void supprimer(joueur info[])
-{ 
-        if (totplayers == 0)
+{
+    if (totplayers == 0)
     {
         printf("Aucun joueur!\n");
         return;

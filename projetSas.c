@@ -1,7 +1,15 @@
-/////////////////version2/////////////////
+/////////////////version3/////////////////
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN "\033[36m"
+#define WHITE "\033[37m"
+#define RESET "\033[0m"
 
 int totplayers = 0;
 int globalid = 1;
@@ -20,30 +28,39 @@ typedef struct
 
 int theprintfunction(int i, joueur info[])
 {
-    printf("Nom : ");
-    scanf(" %[^\n]", info[i].nom);
-    printf("prenom :");
-    scanf(" %[^\n]", info[i].prenom);
-    printf("numeroMaillot :");
-    scanf("%d", &info[i].numeroMaillot);
-    printf("poste (gardien, défenseur, milieu, attaquant) :");
-    scanf(" %[^\n]", info[i].poste);
-    printf("age :");
-    scanf("%d", &info[i].age);
-    printf("buts :");
-    scanf("%d", &info[i].buts);
-    info[i].id = globalid;
-    globalid++;
+   
+    printf("%-17s :", "Nom ");
+scanf(" %[^\n]", info[i].nom);
+
+printf("%-17s :",  "Prenom ");
+scanf(" %[^\n]", info[i].prenom);
+
+printf("%-17s :", "Numero de maillot ");
+scanf("%d", &info[i].numeroMaillot);
+
+printf("%-15s :", "Poste (gardien, defenseur, milieu, attaquant) ");
+scanf(" %[^\n]", info[i].poste);
+
+printf("%-17s :", "Age ");
+scanf("%d", &info[i].age);
+
+printf("%-17s :", "Buts ");
+scanf("%d", &info[i].buts);
+
+info[i].id = globalid;
+globalid++;
+
 }
 int theprintfunction2(int i, joueur info[])
 {
-    printf("Nom :%s\n", info[i].nom);
-    printf("prenom %s\n", info[i].prenom);
-    printf("numeroMaillot %d\n", info[i].numeroMaillot);
-    printf("poste%s\n", info[i].poste);
-    printf("age%d\n", info[i].age);
-    printf("buts%d\n", info[i].buts);
-    printf("id%d\n", info[i].id);
+  printf("%-20s %s\n", "Nom :", info[i].nom);
+printf("%-20s %s\n", "Prenom :", info[i].prenom);
+printf("%-20s %d\n", "Numero Maillot :", info[i].numeroMaillot);
+printf("%-20s %s\n", "Poste :", info[i].poste);
+printf("%-20s %d\n", "Age :", info[i].age);
+printf("%-20s %d\n", "Buts :", info[i].buts);
+printf("%-20s %d\n", "ID :", info[i].id);
+
 }
 
 /// /////// ajout///
@@ -51,9 +68,9 @@ void Ajouter(joueur info[])
 {
     int count = 0;
 
-    printf("\n1.Ajouter un nouveau joueur");
-    printf("\n2.Ajouter plusieurs joueurs\n");
-
+    printf(CYAN"\n1."RESET"Ajouter un nouveau joueur");
+    printf(CYAN"\n2."RESET"Ajouter plusieurs joueurs\n");
+    printf(YELLOW"\nvotre choix :"RESET);
     scanf("%d", &count);
 
     if (count == 1)
@@ -68,9 +85,9 @@ void Ajouter(joueur info[])
     else if (count == 2)
     {
         int nomber = 0;
-        printf("combien de jour");
+        printf("combien de jour ");
         scanf(" %d", &nomber);
-
+printf(YELLOW"\nVotre choix : "RESET);
         for (int i = totplayers; i < totplayers + nomber; i++)
         {
             theprintfunction(i, info);
@@ -80,7 +97,7 @@ void Ajouter(joueur info[])
     }
     else
     {
-        printf("Choix invalide !\n");
+        printf(RED"Choix invalide !\n"RESET);
     }
 }
 ////////buble sort///
@@ -92,7 +109,7 @@ void bublesort(joueur info[], int size, int choix)
         for (int j = 0; j < size - i - 1; j++)
         {
             if (choix == 1)
-            { // sort by name
+            { // name
                 if (strcmp(info[j].nom, info[j + 1].nom) > 0)
                 {
 
@@ -102,7 +119,7 @@ void bublesort(joueur info[], int size, int choix)
                 }
             }
             else if (choix == 2)
-            { // sort by age
+            { /////age
                 if (info[j].age > info[j + 1].age)
                 {
                     joueur temp = info[j];
@@ -111,7 +128,7 @@ void bublesort(joueur info[], int size, int choix)
                 }
             }
             else if (choix == 3)
-            { // sort by poste
+            { //  poste
                 if (strcmp(info[j].poste, info[j + 1].poste) > 0)
                 {
                     joueur temp = info[j];
@@ -129,13 +146,13 @@ void Afficher(joueur info[])
     int choix;
     if (totplayers == 0)
     {
-        printf("Aucun joueur!\n");
+        printf(RED"Aucun joueur!\n"RESET);
         return;
     }
-    printf(" 1 Trier les joueurs par ordre alphabétique (Nom).\n");
-    printf("2 Trier les joueurs par âge.\n");
-    printf("3 Afficher les joueurs par poste.\n");
-
+    printf(BLUE"1."RESET" Trier les joueurs par ordre alphabétique (Nom).\n");
+    printf(BLUE"2. "RESET"Trier les joueurs par âge.\n");
+    printf(BLUE"3."RESET" Afficher les joueurs par poste.\n");
+    printf(YELLOW"\nVotre choix : "RESET);
     scanf("%d", &choix);
     if (choix == 1)
     {
@@ -151,7 +168,7 @@ void Afficher(joueur info[])
     }
     else
     {
-        printf("choix invalid!");
+        printf(RED"choix invalid!"RESET);
     }
     if (choix == 1 || choix == 2)
     {
@@ -163,7 +180,7 @@ void Afficher(joueur info[])
     }
     else if (choix == 3)
     {
-        printf("Poste: gardien\n");
+        printf("Poste: "CYAN"gardien\n"RESET);
         for (int i = 0; i < totplayers; i++)
         {
             char x[] = "gardien";
@@ -173,7 +190,7 @@ void Afficher(joueur info[])
                 printf("%s \n", info[i].nom);
             }
         }
-        printf("Poste: défenseur\n");
+        printf("Poste: "GREEN"défenseur\n"RESET);
         for (int i = 0; i < totplayers; i++)
         {
             char x[] = "défenseur";
@@ -183,7 +200,7 @@ void Afficher(joueur info[])
                 printf("%s \n", info[i].nom);
             }
         }
-        printf("Poste: milieu\n");
+        printf("Poste: "BLUE"milieu\n"RESET);
         for (int i = 0; i < totplayers; i++)
         {
             char x[] = "milieu";
@@ -193,7 +210,7 @@ void Afficher(joueur info[])
                 printf("%s \n", info[i].nom);
             }
         }
-        printf("Poste: attaquant\n");
+        printf("Poste: "MAGENTA"attaquant\n"RESET);
         for (int i = 0; i < totplayers; i++)
         {
             char x[] = "attaquant";
@@ -210,21 +227,21 @@ int Rechercher(joueur info[])
 {
     if (totplayers == 0)
     {
-        printf("Aucun joueur!\n");
-        return;
+        printf(RED"Aucun joueur!\n"RESET);
+        return 0;
     }
     char nomRechercher[50];
     int count = 0;
     int idRechercher;
 
     int trouve = 0;
-    printf("\n1.Rechercher un joueur par Identifiant.");
-    printf("\n2.Rechercher un joueur par Nom.");
+    printf(BLUE"\n1."RESET"Rechercher un joueur par Identifiant.");
+    printf(BLUE"\n2."RESET"Rechercher un joueur par Nom.");
 
     scanf("%d", &count);
     if (count == 1)
     {
-        printf("Entrer id a rechercher");
+        printf("Entrer id a rechercher :");
         scanf("%d", &idRechercher);
 
         for (int i = 0; i < totplayers; i++)
@@ -242,7 +259,7 @@ int Rechercher(joueur info[])
 
         if (!trouve)
         {
-            printf("joueur introuvable.\n");
+            printf(RED"joueur introuvable.\n"RESET);
             return -1;
         }
     }
@@ -264,13 +281,13 @@ int Rechercher(joueur info[])
 
         if (!trouve)
         {
-            printf("joueur introuvable.\n");
+            printf(RED"joueur introuvable.\n"RESET);
             return -1;
         }
     }
     else
     {
-        printf("invalid choix.\n");
+        printf(RED"invalid choix.\n"RESET);
     }
 }
 
@@ -279,13 +296,13 @@ void modifies(joueur info[])
 {
     if (totplayers == 0)
     {
-        printf("Aucun joueur!\n");
+        printf(RED"Aucun joueur!\n"RESET);
         return;
     }
     int index = Rechercher(info);
     if (index == -1)
     {
-        printf("Joueur introuvable, modification annulée.\n");
+        printf(RED"Joueur introuvable, modification annulée.\n"RESET);
         return;
     }
 
@@ -300,7 +317,7 @@ void modifies(joueur info[])
     printf("Nouveau nombre de buts: ");
     scanf("%d", &info[index].buts);
 
-    printf("✅ Joueur modifié avec succès !\n");
+    printf(GREEN"Joueur modifié !\n"RESET);
 }
 
 ////////supprime
@@ -308,7 +325,7 @@ void supprimer(joueur info[])
 {
     if (totplayers == 0)
     {
-        printf("Aucun joueur!\n");
+        printf(RED"Aucun joueur!\n"RESET);
         return;
     }
     int trouve = 0;
@@ -325,19 +342,19 @@ void supprimer(joueur info[])
                 info[j] = info[j + 1];
             }
             totplayers--;
-            printf("joueur supprime avec succes\n");
+            printf(GREEN"joueur supprime avec succes\n"RESET);
             trouve = 1;
             break;
         }
     }
     if (trouve != 1)
     {
-        printf("joueur non trouve\n");
+        printf(RED"joueur non trouve\n"RESET);
     }
 }
 void nombretotal(joueur info[])
 {
-    printf("le nombre total de joueurs %d", totplayers);
+    printf("le nombre total de joueurs : %d \n", totplayers);
 }
 void agemoyen(joueur info[])
 {
@@ -348,13 +365,14 @@ void agemoyen(joueur info[])
         x = info[i].age + x;
     }
     moyenne = (float)x / totplayers;
-    printf("l’âge moyen %.2f", moyenne);
+    printf("l’âge moyen : %.2f\n", moyenne);
 }
 void butmarque(joueur info[])
 {
     int choix;
-    printf("entrer le nombre de buts");
-    scanf("%d", choix);
+    printf("Entrer le nombre de buts :");
+    printf(YELLOW"\nVotre choix : "RESET);
+    scanf("%d", &choix);
     int x = 0;
 
     for (int i = 0; i < totplayers; i++)
@@ -371,7 +389,7 @@ void butmarque(joueur info[])
     }
     if (x = 0)
     {
-        printf("no one has more then this number of buts");
+        printf(RED"Personne n’a plus de ce nombre de buts"RESET);
     }
 }
 void meilleurbuteur(joueur info[])
@@ -379,7 +397,7 @@ void meilleurbuteur(joueur info[])
     int topbut = 0;
     if (totplayers == 0)
     {
-        printf("Aucun joueur enregistré.\n");
+        printf(RED"Aucun joueur enregistré.\n"RESET);
         return;
     }
     for (int i = 1; i < totplayers; i++)
@@ -421,18 +439,18 @@ void plusjeuneEtage(joueur info[])
     theprintfunction2(minage, info);
 }
 void Statistiques(joueur info[])
-{
+{   
     int choix;
-    printf("1.Afficher le nombre total de joueurs dans l’équipe");
-    printf("\n2.Afficher l’âge moyen des joueurs.");
-    printf("\n3.Afficher les joueurs ayant marqué plus de X buts (X introduit par l’utilisateur).");
-    printf("\n4.Afficher le meilleur buteur (joueur avec le maximum de buts).");
-    printf("\n5.Afficher le joueur le plus jeune et le plus âgé.");
+    printf(YELLOW"1. "RESET"Afficher le nombre total de joueurs dans l’équipe");
+    printf(YELLOW"\n2. "RESET"Afficher l’âge moyen des joueurs.");
+    printf(YELLOW"\n3. "RESET"Afficher les joueurs ayant marqué plus de X buts (X introduit par l’utilisateur).");
+    printf(YELLOW"\n4. "RESET"Afficher le meilleur buteur (joueur avec le maximum de buts).");
+    printf(YELLOW"\n5. "RESET"Afficher le joueur le plus jeune et le plus âgé.");
 
-    printf("\n7. Quitter\n");
+    printf(YELLOW"\n6. "RESET"Quitter\n");
     printf("====================================");
 
-    printf("\nVotre choix : ");
+    printf(YELLOW"\nVotre choix : "RESET);
     scanf("%d", &choix);
     switch (choix)
     {
@@ -451,10 +469,17 @@ void Statistiques(joueur info[])
     case 5:
         plusjeuneEtage(info);
         break;
-
+    case 6:
+        printf("Quitter\n");
+            break;
     default:
-        break;
+        
+        printf(RED"Choix Invalide\n"RESET);
+            exit(0);
+            
+        
     }
+    
 }
 int main()
 {
@@ -464,59 +489,63 @@ int main()
     char buffer[100];
 
     do
-    {
-        printf("===========================================\n");
+    { 
+        printf("==================================================\n");
 
-        printf("\tGestion d’une Équipe de Football\t\n");
-        printf("===========================================\n");
+        printf(RED"\tGestion d’une Équipe de Football\t\n"RESET);
+        printf(RED"==================================================\n"RESET);
 
-        printf("1."
+        printf(BLUE"1."RESET
                " Ajouter un joueur");
-        printf("\n2."
+        printf(BLUE"\n2."RESET
                " Afficher la liste de tous les joueurs ");
-        printf("\n3."
+        printf(BLUE"\n3."RESET
                " Modifier un joueur ");
-        printf("\n4."
+        printf(BLUE"\n4."RESET
                " Supprimer un joueur ");
-        printf("\n5."
+        printf(BLUE"\n5."RESET
                " Rechercher un joueur ");
-        printf("\n6."
+        printf(BLUE"\n6."RESET
                " Statistiques ");
-        printf("\n7. Quitter\n");
-        printf("===========================================");
+        printf(RED"\n7. Quitter\n"RESET);
+        printf(RED"=================================================="RESET);
 
-        printf("\nVotre choix : ");
-        scanf("%d", &choix);
-        switch (choix)
-        {
-        case 1:
-            Ajouter(info);
+            printf(YELLOW"\nVotre choix : "RESET);
+         scanf("%d", &choix);
+    
+               
+            
+            // break;
+            switch (choix)
+            {
+                case 1:
+                    Ajouter(info);
 
-            break;
-        case 2:
-            Afficher(info);
-            break;
-        case 3:
-            modifies(info);
-            break;
-        case 4:
-            supprimer(info);
-            break;
-        case 5:
-            Rechercher(info);
-            break;
-        case 6:
-            Statistiques(info);
-            break;
-        case 7:
-            printf("exit\n");
-            break;
-        default:
-            printf("Choix Invalide\n");
-            goto here;
-        }
+                    break;
+                case 2:
+                    Afficher(info);
+                    break;
+                case 3:
+                    modifies(info);
+                    break;
+                case 4:
+                    supprimer(info);
+                    break;
+                case 5:
+                    Rechercher(info);
+                    break;
+                case 6:
+                
+                    Statistiques(info);
+                    break;
+                case 7:
+                    printf("exit\n");
+                    break;
+                default:
+                    printf("Choix Invalide\n");
+                    exit(0);
+            }
 
-    } while (choix != 7);
-here:
+    }while (choix != 7);
     return 0;
 }

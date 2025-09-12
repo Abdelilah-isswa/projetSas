@@ -1,4 +1,4 @@
-/////////////////version3/////////////////
+/////////////////version4/////////////////
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -28,7 +28,8 @@ typedef struct
 
 int theprintfunction(int i, joueur info[])
 {
-   
+   ///scan les info des joueur 
+   //and add the id by one
     printf("%-17s :", "Nom ");
 scanf(" %[^\n]", info[i].nom);
 
@@ -53,6 +54,7 @@ globalid++;
 }
 int theprintfunction2(int i, joueur info[])
 {
+    //scans the playeres info
   printf("%-20s %s\n", "Nom :", info[i].nom);
 printf("%-20s %s\n", "Prenom :", info[i].prenom);
 printf("%-20s %d\n", "Numero Maillot :", info[i].numeroMaillot);
@@ -74,7 +76,7 @@ void Ajouter(joueur info[])
     scanf("%d", &count);
 
     if (count == 1)
-    {
+    {//Ajouter un nouveau joueur
         for (int i = totplayers; i < 1 + totplayers; i++)
         {
 
@@ -83,11 +85,11 @@ void Ajouter(joueur info[])
         totplayers++;
     }
     else if (count == 2)
-    {
+    {//Ajouter plusieurs joueurs
         int nomber = 0;
         printf("combien de jour ");
         scanf(" %d", &nomber);
-printf(YELLOW"\nVotre choix : "RESET);
+
         for (int i = totplayers; i < totplayers + nomber; i++)
         {
             theprintfunction(i, info);
@@ -109,7 +111,7 @@ void bublesort(joueur info[], int size, int choix)
         for (int j = 0; j < size - i - 1; j++)
         {
             if (choix == 1)
-            { // name
+            { // name ,sort them from A to Z;
                 if (strcmp(info[j].nom, info[j + 1].nom) > 0)
                 {
 
@@ -119,7 +121,7 @@ void bublesort(joueur info[], int size, int choix)
                 }
             }
             else if (choix == 2)
-            { /////age
+            { /////age ,going from small to big
                 if (info[j].age > info[j + 1].age)
                 {
                     joueur temp = info[j];
@@ -127,15 +129,7 @@ void bublesort(joueur info[], int size, int choix)
                     info[j + 1] = temp;
                 }
             }
-            else if (choix == 3)
-            { //  poste
-                if (strcmp(info[j].poste, info[j + 1].poste) > 0)
-                {
-                    joueur temp = info[j];
-                    info[j] = info[j + 1];
-                    info[j + 1] = temp;
-                }
-            }
+         
         }
     }
 }
@@ -155,16 +149,17 @@ void Afficher(joueur info[])
     printf(YELLOW"\nVotre choix : "RESET);
     scanf("%d", &choix);
     if (choix == 1)
-    {
+    {// name ,sort them from A to Z;
         bublesort(info, totplayers, choix);
     }
     else if (choix == 2)
-    {
+    { /////age ,going from small to big
         bublesort(info, totplayers, choix);
     }
     else if (choix == 3)
-    {
-        bublesort(info, totplayers, choix);
+    {//  poste
+        
+       
     }
     else
     {
@@ -179,7 +174,7 @@ void Afficher(joueur info[])
         }
     }
     else if (choix == 3)
-    {
+    {/// par post
         printf("Poste: "CYAN"gardien\n"RESET);
         for (int i = 0; i < totplayers; i++)
         {
@@ -190,10 +185,10 @@ void Afficher(joueur info[])
                 printf("%s \n", info[i].nom);
             }
         }
-        printf("Poste: "GREEN"défenseur\n"RESET);
+        printf("Poste: "GREEN"defenseur\n"RESET);
         for (int i = 0; i < totplayers; i++)
         {
-            char x[] = "défenseur";
+            char x[] = "defenseur";
 
             if (strcmp(info[i].poste, x) == 0)
             {
@@ -222,7 +217,7 @@ void Afficher(joueur info[])
         }
     }
 }
-////rechercher/////
+///////////////////////////5.rechercher/////
 int Rechercher(joueur info[])
 {
     if (totplayers == 0)
@@ -240,7 +235,7 @@ int Rechercher(joueur info[])
 
     scanf("%d", &count);
     if (count == 1)
-    {
+    {/////////////Rechercher un joueur par Identifiant.
         printf("Entrer id a rechercher :");
         scanf("%d", &idRechercher);
 
@@ -264,13 +259,13 @@ int Rechercher(joueur info[])
         }
     }
     else if (count == 2)
-    {
+    {///////////////////////Rechercher un joueur par Nom.
         printf("Entrer le nom à rechercher");
         scanf(" %[^\n]", nomRechercher);
 
         for (int i = 0; i < totplayers; i++)
         {
-            if (strcmp(nomRechercher, info[i].nom) == 0)
+            if (strcmp(nomRechercher, info[i].nom) == 0)//if they are the same
             {
                 theprintfunction2(i, info);
                 trouve = 1;
@@ -279,10 +274,10 @@ int Rechercher(joueur info[])
             }
         }
 
-        if (!trouve)
+        if (!trouve) ////if trouver==0
         {
             printf(RED"joueur introuvable.\n"RESET);
-            return -1;
+            return -1; ////it goes to 3.modifier
         }
     }
     else
@@ -291,7 +286,7 @@ int Rechercher(joueur info[])
     }
 }
 
-/// ///////modifier////////////////
+/// ///////3.modifier////////////////
 void modifies(joueur info[])
 {
     if (totplayers == 0)
@@ -320,7 +315,7 @@ void modifies(joueur info[])
     printf(GREEN"Joueur modifié !\n"RESET);
 }
 
-////////supprime
+////////4.supprime
 void supprimer(joueur info[])
 {
     if (totplayers == 0)
@@ -358,13 +353,13 @@ void nombretotal(joueur info[])
 }
 void agemoyen(joueur info[])
 {
-    float moyenne;
-    int x = 0;
+    float moyenne=0;
+    
     for (int i = 0; i < totplayers; i++)
     {
-        x = info[i].age + x;
+        moyenne= info[i].age + moyenne;
     }
-    moyenne = (float)x / totplayers;
+    moyenne = moyenne / totplayers;
     printf("l’âge moyen : %.2f\n", moyenne);
 }
 void butmarque(joueur info[])
@@ -438,6 +433,7 @@ void plusjeuneEtage(joueur info[])
     theprintfunction2(maxage, info);
     theprintfunction2(minage, info);
 }
+///////////6.statistiques////
 void Statistiques(joueur info[])
 {   
     int choix;
@@ -452,6 +448,12 @@ void Statistiques(joueur info[])
 
     printf(YELLOW"\nVotre choix : "RESET);
     scanf("%d", &choix);
+     if (totplayers == 0)
+    {
+        printf(RED"Aucun joueur!\n"RESET);
+        return;
+    }
+
     switch (choix)
     {
     case 1:
@@ -511,10 +513,7 @@ int main()
         printf(RED"=================================================="RESET);
 
             printf(YELLOW"\nVotre choix : "RESET);
-         scanf("%d", &choix);
-    
-               
-            
+         scanf("%d", &choix);   
             // break;
             switch (choix)
             {
